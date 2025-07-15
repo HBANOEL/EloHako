@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hakan ve Elif'in Aşk Testi" />
+    <title>Aşk Testi | Hakan ❤️ Elif</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Aşk Testi Özel Stilleri */
+        .love-test-section {
+            padding: 5rem 0;
+            background-color: #fff5f5;
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.1);
+        }
+        
+        .test-progress {
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .test-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .test-question {
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .test-question.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .test-question h3 {
+            color: #ff6b6b;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .test-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .test-option {
+            padding: 1rem;
+            background: #fff9f9;
+            border: 2px solid #ffd6d6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-option:hover {
+            background: #ffebeb;
+            border-color: #ff6b6b;
+        }
+        
+        .test-option i {
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+        
+        .test-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .test-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .test-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .test-result {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .test-result h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .test-result p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .love-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin: 1rem 0;
+        }
+        
+        .heart-rating {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 1rem 0;
+        }
+        
+        .heart-rating i {
+            font-size: 1.8rem;
+            color: #ffb8b8;
+        }
+        
+        .heart-rating i.filled {
+            color: #ff6b6b;
+        }
+        
+        .test-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin: 1rem auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .test-container {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+            
+            .test-question h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Seçili şık için özel stil */
+.test-option.selected {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e) !important;
+    color: white !important;
+    border-color: transparent !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+.test-option.selected i {
+    color: white !important;
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Seçili şıktaki ikon için animasyon */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Hover efekti güncellemesi */
+.test-option:hover:not(.selected) {
+    background: #ffebeb;
+    border-color: #ff6b6b;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Anasayfa</a>
+            <a href="anilar.html" class="nav-link"><i class="fas fa-book-open"></i> Anılarımız</a>
+            <a href="hikayemiz.html" class="nav-link"><i class="fas fa-heart"></i> Hikayemiz</a>
+            <a href="index.html#countdown" class="nav-link"><i class="fas fa-calendar-heart"></i> Yıl Dönümü</a>
+            <a href="yapilacaklar.html" class="nav-link"><i class="fas fa-list-check"></i> Beraber Yapılacaklar</a>
+            <a href="kapsul.html" class="nav-link"><i class="fas fa-lock"></i> Gizli Kapsül</a> 
+            <a href="ask-testi.html" class="nav-link active"><i class="fas fa-heartbeat"></i> Aşk Testi</a>
+        </div>
+    </header>
+
+    <section class="love-test-section">
+        <div class="section-container">
+            <h2 class="section-title">Aşk Testi</h2>
+            <p class="section-subtitle">İlişkimizin ne kadar güçlü olduğunu test edin!</p>
+            
+            <div class="test-container">
+                <div class="test-progress">
+                    <div class="test-progress-bar" id="testProgress"></div>
+                </div>
+                
+                <div class="test-question active" id="question1">
+                    <h3>1. Partnerinizle ilk tanıştığınız anı düşündüğünüzde ne hissediyorsunuz?</h3>
+                    <div class="test-options">
+                        <div class="test-option" data-points="3">
+                            <i class="fas fa-heart"></i>
+                            <span>Kalp atışlarım hızlanıyor, hala o anı unutamıyorum</span>
+                        </div>
+                        <div class="test-option" data-points="2">
+                            <i class="fas fa-smile"></i>
+                            <span>Gülümsüyorum, çok tatlı bir anıydı</span>
+                        </div>
+                        <div class="test-option" data-points="1">
+                            <i class="fas fa-meh"></i>
+                            <span>Normal bir tanışmaydı diyebilirim</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-question" id="question2">
+                    <h3>2. Partnerinizle en çok hangi ortak özelliğiniz olduğunu düşünüyorsunuz?</h3>
+                    <div class="test-options">
+                        <div class="test-option" data-points="3">
+                            <i class="fas fa-brain"></i>
+                            <span>Düşünce yapımız ve hayata bakış açımız</span>
+                        </div>
+                        <div class="test-option" data-points="2">
+                            <i class="fas fa-music"></i>
+                            <span>Müzik zevkimiz ve hobilerimiz</span>
+                        </div>
+                        <div class="test-option" data-points="1">
+                            <i class="fas fa-utensils"></i>
+                            <span>Yemek zevkimiz gibi basit şeyler</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-question" id="question3">
+                    <h3>3. Tartıştığınızda genellikle nasıl çözüme ulaşıyorsunuz?</h3>
+                    <div class="test-options">
+                        <div class="test-option" data-points="3">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <span>Konuşarak ve birbirimizi anlamaya çalışarak</span>
+                        </div>
+                        <div class="test-option" data-points="2">
+                            <i class="fas fa-clock"></i>
+                            <span>Zamanla kendiliğinden çözülüyor</span>
+                        </div>
+                        <div class="test-option" data-points="1">
+                            <i class="fas fa-angry"></i>
+                            <span>Bazen uzun süre konuşmuyoruz</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-question" id="question4">
+                    <h3>4. Partnerinizle gelecek planlarınız var mı?</h3>
+                    <div class="test-options">
+                        <div class="test-option" data-points="3">
+                            <i class="fas fa-heart"></i>
+                            <span>Evet, detaylı planlarımız var ve bunları konuşuyoruz</span>
+                        </div>
+                        <div class="test-option" data-points="2">
+                            <i class="fas fa-home"></i>
+                            <span>Genel hatlarıyla bazı hayallerimiz var</span>
+                        </div>
+                        <div class="test-option" data-points="1">
+                            <i class="fas fa-question"></i>
+                            <span>Çok fazla gelecek planımız yok</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-question" id="question5">
+                    <h3>5. Partnerinizle geçirdiğiniz zaman size ne hissettiriyor?</h3>
+                    <div class="test-options">
+                        <div class="test-option" data-points="3">
+                            <i class="fas fa-star"></i>
+                            <span>Kendimi çok özel ve mutlu hissediyorum</span>
+                        </div>
+                        <div class="test-option" data-points="2">
+                            <i class="fas fa-smile"></i>
+                            <span>Rahat ve huzurlu hissediyorum</span>
+                        </div>
+                        <div class="test-option" data-points="1">
+                            <i class="fas fa-meh"></i>
+                            <span>Normal, herhangi biriyle zaman geçiriyormuşum gibi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-navigation">
+                    <button class="test-btn" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i> Önceki
+                    </button>
+                    <button class="test-btn" id="nextBtn">
+                        Sonraki <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="test-result" id="testResult">
+                    <h2>Aşk Testi Sonucunuz</h2>
+                    <div class="love-score" id="loveScore">0%</div>
+                    <div class="heart-rating" id="heartRating">
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <p id="resultMessage"></p>
+                    <button class="test-btn" id="restartBtn">
+                        <i class="fas fa-redo"></i> Testi Tekrarla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                Hakan <span class="heart-icon"><i class="fas fa-heart"></i></span> Elif
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> Tüm Hakları Saklıdır
+            </div>
+        </div>
+        <!-- Sevimli Fil Asistan -->
+        <div id="filAsistan">
+            <img src="fotolar/filasistan.jpg" alt="Fil Asistan" id="filGorsel">
+            <div id="filBalonu" class="balon-gizli">Aşk testini çözmeye hazır mısın? ❤️</div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentQuestion = 1;
+    const totalQuestions = 5;
+    let score = 0;
+    const maxScore = totalQuestions * 3;
+
+    const progressBar = document.getElementById('testProgress');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const testResult = document.getElementById('testResult');
+    const loveScore = document.getElementById('loveScore');
+    const heartRating = document.getElementById('heartRating');
+    const resultMessage = document.getElementById('resultMessage');
+
+    function showQuestion(questionNum) {
+        document.querySelectorAll('.test-question').forEach(q => {
+            q.classList.remove('active');
+        });
+        document.getElementById(`question${questionNum}`).classList.add('active');
+        progressBar.style.width = `${((questionNum - 1) / totalQuestions) * 100}%`;
+        prevBtn.disabled = questionNum === 1;
+        nextBtn.innerHTML = questionNum === totalQuestions ? 'Sonucu Gör <i class="fas fa-arrow-right"></i>' : 'Sonraki <i class="fas fa-arrow-right"></i>';
+    }
+
+    document.querySelectorAll('.test-option').forEach(option => {
+        option.addEventListener('click', function() {
+            this.parentElement.querySelectorAll('.test-option').forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    nextBtn.addEventListener('click', function() {
+        const activeQuestion = document.querySelector('.test-question.active');
+        const selectedOption = activeQuestion.querySelector('.test-option.selected');
+        if (!selectedOption) {
+            alert('Lütfen bir seçenek seçin.');
+            return;
+        }
+
+        const points = parseInt(selectedOption.dataset.points);
+        score += points;
+
+        if (currentQuestion < totalQuestions) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        } else {
+            showResult();
+        }
+    });
+
+    prevBtn.addEventListener('click', function() {
+        if (currentQuestion > 1) {
+            currentQuestion--;
+            showQuestion(currentQuestion);
+        }
+    });
+
+    restartBtn.addEventListener('click', function() {
+        currentQuestion = 1;
+        score = 0;
+        document.querySelectorAll('.test-question').forEach((q, index) => {
+            q.classList.remove('active');
+            if (index === 0) q.classList.add('active');
+        });
+        document.querySelector('.test-navigation').style.display = 'flex';
+        testResult.style.display = 'none';
+        progressBar.style.width = '0%';
+        document.querySelectorAll('.test-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        prevBtn.disabled = true;
+        nextBtn.innerHTML = 'Sonraki <i class="fas fa-arrow-right"></i>';
+    });
+
+    function showResult() {
+        const percentage = Math.round((score / maxScore) * 100);
+        loveScore.textContent = `${percentage}%`;
+        const hearts = heartRating.querySelectorAll('i');
+        const filledHearts = Math.ceil(percentage / 20);
+        hearts.forEach((heart, index) => {
+            heart.classList.toggle('filled', index < filledHearts);
+        });
+
+        let message = '';
+        if (percentage >= 80) {
+            message = 'Mükemmel! Aşkınız gerçekten çok güçlü. Bu özel bağı korumaya devam edin! ❤️';
+        } else if (percentage >= 60) {
+            message = 'Güzel! İlişkiniz sağlam temellere dayanıyor. Sevginizi beslemeye devam edin. 🌟';
+        } else if (percentage >= 40) {
+            message = 'Orta seviye. İlişkinizde güzel şeyler var ama daha çok iletişim önemli. 💫';
+        } else {
+            message = 'İlişkinizde bazı şeyleri gözden geçirmeniz gerekebilir. Daha çok zaman ayırmayı deneyin. 🌱';
+        }
+
+        resultMessage.textContent = message;
+        document.querySelectorAll('.test-question').forEach(q => q.classList.remove('active'));
+        document.querySelector('.test-navigation').style.display = 'none';
+        testResult.style.display = 'block';
+    }
+
+    showQuestion(currentQuestion);
+});
+</script>
+
+
+</body>
+</html>

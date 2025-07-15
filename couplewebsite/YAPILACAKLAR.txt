@@ -1,0 +1,4 @@
+Yapılacaklar 
+-------------------------
+1-) anılar ve hikayemiz sayfalarında kalp spawn olmuyor.
+2-) 100 xp toplayınca sandık açılıyor ama hiç bir şey olmuyor.

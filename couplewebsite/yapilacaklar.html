@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hakan ve Elif'in Beraber Yapılacaklar Listesi" />
+    <title>Hakan ❤️ Elif - Beraber Yapılacaklar</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Anasayfa</a>
+            <a href="anilar.html" class="nav-link"><i class="fas fa-book-open"></i> Anılarımız</a>
+            <a href="hikayemiz.html" class="nav-link"><i class="fas fa-heart"></i> Hikayemiz</a>
+            <a href="index.html#countdown" class="nav-link"><i class="fas fa-calendar-heart"></i> Yıl Dönümü</a>
+            <a href="yapilacaklar.html" class="nav-link active"><i class="fas fa-list-check"></i> Beraber Yapılacaklar</a>
+            <a href="kapsul.html" class="nav-link"><i class="fas fa-lock"></i> Gizli Kapsül</a> 
+            <a href="ask-testi.html" class="nav-link"><i class="fas fa-heartbeat"></i> Aşk Testi</a>
+        </div>
+    </header>
+
+    <div class="hero-small">
+        <div class="hero-overlay">
+            <h1>Beraber Yapılacaklar <span class="heart-beat">❤️</span></h1>
+            <p class="subtitle">Birlikte geçireceğimiz unutulmaz anlar için planlarımız...</p>
+        </div>
+    </div>
+
+    <section class="todo-section">
+        <div class="section-container">
+            <h2 class="section-title">Aktivite Listemiz</h2>
+            <p class="section-subtitle">Birlikte yapmayı planladığımız tüm güzel şeyler burada!</p>
+            
+            <div class="todo-categories">
+                <!-- Kategori 1 -->
+                <div class="todo-category">
+                    <h3><i class="fas fa-utensils"></i> Yemek Aktiviteleri</h3>
+                    <div class="todo-items">
+                        <div class="todo-item">
+                            <input type="checkbox" id="item1" class="todo-checkbox">
+                            <label for="item1" class="todo-label">
+                                <span class="todo-text">Birlikte yeni bir tarif denemek</span>
+                                <span class="todo-benefit">Yaratıcılığımızı geliştirir ve eğlenceli vakit geçiririz</span>
+                            </label>
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox" id="item2" class="todo-checkbox">
+                            <label for="item2" class="todo-label">
+                                <span class="todo-text">Şehir dışında bir restoran keşfetmek</span>
+                                <span class="todo-benefit">Farklı lezzetler tatmak ve yeni yerler görmek</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kategori 2 -->
+                <div class="todo-category">
+                    <h3><i class="fas fa-plane"></i> Seyahat Planları</h3>
+                    <div class="todo-items">
+                        <div class="todo-item">
+                            <input type="checkbox" id="item3" class="todo-checkbox">
+                            <label for="item3" class="todo-label">
+                                <span class="todo-text">Hafta sonu kaçamağı yapmak</span>
+                                <span class="todo-benefit">Rutinden uzaklaşmak ve rahatlamak</span>
+                            </label>
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox" id="item4" class="todo-checkbox">
+                            <label for="item4" class="todo-label">
+                                <span class="todo-text">Yurt dışı seyahati planlamak</span>
+                                <span class="todo-benefit">Farklı kültürler tanımak ve unutulmaz anılar biriktirmek</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kategori 3 -->
+                <div class="todo-category">
+                    <h3><i class="fas fa-heart"></i> Romantik Anlar</h3>
+                    <div class="todo-items">
+                        <div class="todo-item">
+                            <input type="checkbox" id="item5" class="todo-checkbox">
+                            <label for="item5" class="todo-label">
+                                <span class="todo-text">Gün batımını birlikte izlemek</span>
+                                <span class="todo-benefit">Doğanın güzelliğini birlikte takdir etmek</span>
+                            </label>
+                        </div>
+                        <div class="todo-item">
+                            <input type="checkbox" id="item6" class="todo-checkbox">
+                            <label for="item6" class="todo-label">
+                                <span class="todo-text">Evde romantik bir akşam yemeği</span>
+                                <span class="todo-benefit">Sadece ikimize özel kaliteli zaman geçirmek</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="todo-form">
+                <h3>Yeni Aktivite Ekle</h3>
+                <form id="addTodoForm">
+                    <div class="form-group">
+                        <label for="newTodo">Aktivite:</label>
+                        <input type="text" id="newTodo" placeholder="Yapmayı planladığınız aktivite" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="todoCategory">Kategori:</label>
+                        <select id="todoCategory" required>
+                            <option value="">Kategori seçin</option>
+                            <option value="Yemek Aktiviteleri">Yemek Aktiviteleri</option>
+                            <option value="Seyahat Planları">Seyahat Planları</option>
+                            <option value="Romantik Anlar">Romantik Anlar</option>
+                            <option value="Diğer">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="todoBenefit">Bize Katkısı:</label>
+                        <textarea id="todoBenefit" placeholder="Bu aktivite bize ne katacak?" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="button"><i class="fas fa-plus"></i> Listeye Ekle</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                Hakan <span class="heart-icon"><i class="fas fa-heart"></i></span> Elif
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> Tüm Hakları Saklıdır
+            </div>
+        </div>
+        <!-- Sevimli Fil Asistan -->
+        <div id="filAsistan">
+            <img src="fotolar/filasistan.jpg" alt="Fil Asistan" id="filGorsel">
+            <div id="filBalonu" class="balon-gizli">Yeni aktiviteler eklemeyi unutma! ❤️</div>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+<script>
+    // Yapılacaklar listesi için özel JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Yeni aktivite ekleme formu
+        const addTodoForm = document.getElementById('addTodoForm');
+        if (addTodoForm) {
+            addTodoForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newTodo = document.getElementById('newTodo').value;
+                const category = document.getElementById('todoCategory').value;
+                const benefit = document.getElementById('todoBenefit').value;
+                
+                if (newTodo && category) {
+                    // Yeni aktiviteyi listeye ekleme işlemi
+                    const newId = 'item' + Date.now();
+                    const newTodoItem = `
+                        <div class="todo-item">
+                            <input type="checkbox" id="${newId}" class="todo-checkbox">
+                            <label for="${newId}" class="todo-label">
+                                <span class="todo-text">${newTodo}</span>
+                                ${benefit ? `<span class="todo-benefit">${benefit}</span>` : ''}
+                            </label>
+                        </div>
+                    `;
+
+                    // Kategoriyi bul ve ekle
+                    let categoryFound = false;
+                    document.querySelectorAll('.todo-category h3').forEach(cat => {
+                        if (cat.innerHTML.includes(category)) {
+                            const todoItemsContainer = cat.parentElement.querySelector('.todo-items');
+                            if (todoItemsContainer) {
+                                todoItemsContainer.insertAdjacentHTML('beforeend', newTodoItem);
+                                categoryFound = true;
+                                
+                                // Yeni checkbox için event listener ekle
+                                document.getElementById(newId).addEventListener('change', function() {
+                                    this.nextElementSibling.classList.toggle('completed', this.checked);
+                                });
+                            }
+                        }
+                    });
+
+                    // Kategori yoksa yeni oluştur
+                    if (!categoryFound) {
+                        const iconClass = category.includes('Yemek') ? 'fas fa-utensils' : 
+                                         category.includes('Seyahat') ? 'fas fa-plane' :
+                                         category.includes('Romantik') ? 'fas fa-heart' : 'fas fa-star';
+                        
+                        const newCategoryHTML = `
+                            <div class="todo-category">
+                                <h3><i class="${iconClass}"></i> ${category}</h3>
+                                <div class="todo-items">
+                                    ${newTodoItem}
+                                </div>
+                            </div>
+                        `;
+                        document.querySelector('.todo-categories').insertAdjacentHTML('beforeend', newCategoryHTML);
+                        
+                        // Yeni checkbox için event listener ekle
+                        document.getElementById(newId).addEventListener('change', function() {
+                            this.nextElementSibling.classList.toggle('completed', this.checked);
+                        });
+                    }
+
+                    // Bildirim göster ve formu temizle
+                    const balon = document.getElementById('filBalonu');
+                    if (balon) {
+                        balon.textContent = `"${newTodo}" eklendi! ❤️`;
+                        balon.classList.remove('balon-gizli');
+                        balon.classList.add('balon-visible');
+                        setTimeout(() => {
+                            balon.classList.remove('balon-visible');
+                            balon.classList.add('balon-gizli');
+                        }, 3000);
+                    }
+                    
+                    addTodoForm.reset();
+                }
+            });
+        }
+        
+        // Mevcut checkbox'lar için event listener'lar
+        document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                this.nextElementSibling.classList.toggle('completed', this.checked);
+            });
+        });
+        
+        // Yıl bilgisini güncelleme
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    });
+</script>
+</body>
+</html>

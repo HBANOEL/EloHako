@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gizli Doğum Günü Kapsülü | Hakan ❤️ Elif</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* HEADER STİLLERİ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+        .nav-link {
+            color: white;
+            padding: 0.5rem 1.2rem;
+            margin: 0 0.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        .nav-link i {
+            margin-right: 8px;
+        }
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-bottom: 3px solid white;
+        }
+
+        /* KAPSUL STİLLERİ */
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background: #fff5f5;
+            padding-top: 60px;
+        }
+        .kapsul-ekrani {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+        .kapsul-kilitli {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            cursor: pointer;
+        }
+        .kilit-icon {
+            font-size: 5rem;
+            margin: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .geri-sayim {
+            font-size: 2rem;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .geri-sayim span {
+            display: inline-block;
+            margin: 0 5px;
+            min-width: 60px;
+        }
+        .kapsul-acik {
+            display: none;
+            background: white;
+        }
+        .notlar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        .not-karti {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .not-karti:hover {
+            transform: translateY(-10px);
+        }
+        .memory-image, .memory-video {
+            width: 100%;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        /* EFEKTLER */
+        #konfeti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        .balon {
+            position: fixed;
+            width: 40px;
+            height: 60px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: balonUcak 10s linear infinite;
+            bottom: -100px;
+            z-index: 50;
+        }
+        @keyframes balonUcak {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* FİL ASİSTAN */
+        #filAsistan {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #filGorsel {
+            width: 80px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        #filBalonu {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: white;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .balon-goster {
+            opacity: 1 !important;
+        }
+
+        /* XP SİSTEMİ */
+        .xp-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .xp-bar {
+            width: 150px;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .xp-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .treasure-chest {
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d4af37"><path d="M5 4h14v3h1c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1h1V4zm2 3h10V5H7v2zm11 3H6v8h12v-8z"/></svg>');
+            background-size: contain;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: none;
+        }
+        .treasure-chest:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        /* MOBİL UYUMLULUK */
+        @media (max-width: 768px) {
+            .geri-sayim {
+                font-size: 1.5rem;
+            }
+            .geri-sayim span {
+                min-width: 50px;
+            }
+            .header-container {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER MENÜSÜ -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Anasayfa</a>
+            <a href="anilar.html" class="nav-link"><i class="fas fa-book-open"></i> Anılarımız</a>
+            <a href="hikayemiz.html" class="nav-link"><i class="fas fa-heart"></i> Hikayemiz</a>
+            <a href="index.html#countdown" class="nav-link"><i class="fas fa-calendar-heart"></i> Yıl Dönümü</a>
+            <a href="yapilacaklar.html" class="nav-link"><i class="fas fa-list-check"></i> Beraber Yapılacaklar</a>
+            <a href="kapsul.html" class="nav-link active"><i class="fas fa-lock"></i> Gizli Kapsül</a>
+            <a href="ask-testi.html" class="nav-link"><i class="fas fa-heartbeat"></i> Aşk Testi</a>
+        </div>
+    </header>
+
+    <!-- KONFETİ EFEKTİ -->
+    <canvas id="konfeti-canvas"></canvas>
+    
+    <!-- KİLİTLİ EKRAN -->
+    <div class="kapsul-ekrani kapsul-kilitli" id="kilitliEkran">
+        <h1><i class="fas fa-lock"></i> GİZLİ KAPSUL</h1>
+        <p>Bu özel mesajlar ve anılar sadece doğum gününde açılacak!</p>
+        
+        <div class="geri-sayim" id="geriSayim">
+            <div><span id="gun">--</span> <small>Gün</small></div>
+            <div><span id="saat">--</span> <small>Saat</small></div>
+            <div><span id="dakika">--</span> <small>Dakika</small></div>
+            <div><span id="saniye">--</span> <small>Saniye</small></div>
+        </div>
+        
+        <i class="fas fa-lock kilit-icon"></i>
+        <p>Tıkla ve geri sayımı başlat</p>
+    </div>
+    
+    <!-- AÇIK KAPSUL -->
+    <div class="kapsul-ekrani kapsul-acik" id="acikEkran">
+        <h1><i class="fas fa-gift"></i> DOĞUM GÜNÜN KUTLU OLSUN!</h1>
+        <p>İşte senin için hazırladığım özel anılar ❤️</p>
+        
+        <div class="notlar-grid">
+            <div class="not-karti">
+                <h3><i class="fas fa-heart"></i> İlk Mesajım</h3>
+                <p>"İyi ki doğdun güzelim… Her zaman yanında olamasam da kalbim hep senin yanında. Bu mesafe bitecek ve bir gün sana sarıldığımda tüm bu bekleyişin değdiğini anlayacağız. Seni çok seviyorum"</p>
+                <img src="fotolar/kapsul/kolaj1.jpeg" class="memory-image" alt="Biz">
+            </div>
+            
+            <div class="not-karti">
+                <h3><i class="fas fa-camera"></i> Fotoğraf Anımız</h3>
+                <img src="fotolar/kapsul/kolaj2.jpeg" class="memory-image" alt="Biz">
+                <p>Bu fotoğraf yerine bizzat ben seni öperek kutlamak isterdim doğum gününü ama şimdilik elimden bu geldi, iyi ki doğdun iyi ki varsın❤️❤️...</p>
+            </div>
+            
+            <div class="not-karti">
+                <h3><i class="fas fa-video"></i> Video Mesajım</h3>
+                <video controls class="memory-video">
+                    <source src="fotolar/ozel-video.mp4" type="video/mp4">
+                    Tarayıcınız video oynatmayı desteklemiyor.
+                </video>
+                <p>Sana her gün iyi ki diyebilirim ama bugün bi başka… 🩵🎂</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FİL ASİSTAN -->
+    <div id="filAsistan">
+        <img src="fotolar/filasistan.jpg" alt="Fil Asistan" id="filGorsel">
+        <div id="filBalonu" class="balon-gizli">Merhaba! Kapsülün açılmasını bekliyorum 🎁</div>
+    </div>
+
+    <!-- XP SİSTEMİ -->
+    <div class="xp-container">
+        <div class="xp-count">0/100 XP</div>
+        <div class="xp-bar">
+            <div class="xp-progress" style="width: 0%"></div>
+        </div>
+        <div class="treasure-chest" title="Sandığı Aç" style="display: none"></div>
+    </div>
+
+    <!-- SCRİPTLER -->
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+    <script>
+        // DEĞİŞKENLER
+        let geriSayimBasladi = false;
+        const dogumGunu = new Date("2025-07-15T11:40:00"); // 27 TEMMUZ 2024
+        
+        // TIKLAMA İLE GERİ SAYIM BAŞLATMA
+        document.getElementById('kilitliEkran').addEventListener('click', function() {
+            if (!geriSayimBasladi) {
+                geriSayimBasladi = true;
+                startGeriSayim();
+                this.style.cursor = 'default';
+                this.querySelector('p:last-child').textContent = 'Geri sayım başladı!';
+            }
+        });
+        
+        // GERİ SAYIM FONKSİYONU
+        function startGeriSayim() {
+            const timer = setInterval(function() {
+                const simdi = new Date();
+                const fark = dogumGunu - simdi;
+                
+                if (fark <= 0) {
+                    clearInterval(timer);
+                    kapsuluAc();
+                    return;
+                }
+                
+                // ZAMAN HESAPLAMA
+                const gun = Math.floor(fark / (1000 * 60 * 60 * 24));
+                const saat = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const dakika = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+                const saniye = Math.floor((fark % (1000 * 60)) / 1000);
+                
+                // EKRANA YAZDIRMA
+                document.getElementById('gun').textContent = gun;
+                document.getElementById('saat').textContent = saat;
+                document.getElementById('dakika').textContent = dakika;
+                document.getElementById('saniye').textContent = saniye;
+            }, 1000);
+        }
+        
+        // KAPSUL AÇILINCA
+        function kapsuluAc() {
+            // 1. KONFETİ
+            const confettiSettings = { 
+                target: 'konfeti-canvas',
+                max: 200,
+                size: 1.5,
+                animate: true
+            };
+            const confetti = new ConfettiGenerator(confettiSettings);
+            confetti.render();
+            document.getElementById('konfeti-canvas').style.display = 'block';
+            
+            // 2. BALONLAR
+            const balonRenkleri = ['red', 'pink', 'gold', 'silver'];
+            for (let i = 0; i < 15; i++) {
+                const balon = document.createElement('div');
+                balon.className = 'balon';
+                balon.style.left = Math.random() * 100 + 'vw';
+                balon.style.backgroundImage = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 140"><path fill="${balonRenkleri[i%4]}" d="M50,0 C65,20 75,40 50,70 C25,40 35,20 50,0 Z M50,80 C30,100 50,120 50,140 C50,120 70,100 50,80 Z"/></svg>')`;
+                balon.style.animationDuration = 8 + Math.random() * 7 + 's';
+                document.body.appendChild(balon);
+            }
+            
+            // 3. EKRAN DEĞİŞİMİ
+            document.getElementById('kilitliEkran').style.display = 'none';
+            document.getElementById('acikEkran').style.display = 'flex';
+            
+            // 4. MÜZİK (KULLANICI ETKİLEŞİMİ GEREKTİRİR)
+            const audio = new Audio('muzik/dogum-gunu.mp3');
+            document.getElementById('acikEkran').addEventListener('click', function() {
+                audio.play().catch(e => console.log("Müzik oynatılamadı:", e));
+            }, { once: true });
+        }
+        
+        // FİL ASİSTAN FONKSİYONU
+        function initFilAsistan() {
+            const filAsistan = document.getElementById('filAsistan');
+            const filGorsel = document.getElementById('filGorsel');
+            const filBalonu = document.getElementById('filBalonu');
+            
+            const mesajlar = [
+                "Doğum günün yaklaşıyor! 🎉",
+                "Kapsülü merak ediyorum... 🔐",
+                "Seni çok seviyorum! ❤️",
+                "Hakan çok özenmiş bu siteye 😊",
+                "Tıkla bana, sana sürprizlerim var!"
+            ];
+            
+            filAsistan.addEventListener('click', function() {
+                const rastgeleMesaj = mesajlar[Math.floor(Math.random() * mesajlar.length)];
+                filBalonu.textContent = rastgeleMesaj;
+                filBalonu.classList.toggle('balon-goster');
+                
+                // Fil animasyonu
+                filGorsel.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    filGorsel.style.transform = 'scale(1)';
+                }, 300);
+                
+                // 3 saniye sonra balonu gizle
+                setTimeout(() => {
+                    filBalonu.classList.remove('balon-goster');
+                }, 3000);
+            });
+        }
+        
+        // XP SİSTEMİ
+        function initXPSystem() {
+            let xp = localStorage.getItem('loveXP') ? parseInt(localStorage.getItem('loveXP')) : 0;
+            const xpNeeded = 100;
+            
+            function updateXPDisplay() {
+                document.querySelector('.xp-count').textContent = `${xp}/${xpNeeded} XP`;
+                document.querySelector('.xp-progress').style.width = `${(xp/xpNeeded)*100}%`;
+                document.querySelector('.treasure-chest').style.display = xp >= xpNeeded ? 'block' : 'none';
+            }
+            
+            document.querySelector('.treasure-chest')?.addEventListener('click', function() {
+                this.style.animation = 'chestOpen 0.5s';
+                setTimeout(() => {
+                    alert("Tebrikler! Bugün Elif'e 'Gözlerin yıldızları kıskandırıyor' deyin ❤️");
+                    xp = 0;
+                    localStorage.setItem('loveXP', xp);
+                    updateXPDisplay();
+                    this.style.animation = '';
+                    this.style.display = 'none';
+                }, 500);
+            });
+            
+            updateXPDisplay();
+        }
+        
+        // SAYFA YÜKLENİNCE ÇALIŞACAKLAR
+        document.addEventListener('DOMContentLoaded', function() {
+            initFilAsistan();
+            initXPSystem();
+            
+            // Aktif sayfayı vurgula
+            const currentPage = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

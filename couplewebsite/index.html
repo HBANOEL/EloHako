@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hakan ve Elif'in Aşk Sitesi" />
+    <title>Hakan ❤️ Elif</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- index.html dosyasında header kısmını güncelleyin -->
+<header>
+    <div class="header-container">
+        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Anasayfa</a>
+        <a href="anilar.html" class="nav-link"><i class="fas fa-book-open"></i> Anılarımız</a>
+        <a href="hikayemiz.html" class="nav-link"><i class="fas fa-heart"></i> Hikayemiz</a>
+        <a href="index.html#countdown" class="nav-link"><i class="fas fa-calendar-heart"></i> Yıl Dönümü</a>
+        <a href="yapilacaklar.html" class="nav-link"><i class="fas fa-list-check"></i> Beraber Yapılacaklar</a>
+        <a href="kapsul.html" class="nav-link"><i class="fas fa-lock"></i> Gizli Kapsül</a> 
+        <a href="ask-testi.html" class="nav-link"><i class="fas fa-heartbeat"></i> Aşk Testi</a>
+    </div>
+</header>
+
+    <div class="hero" id="slideshow">
+        <div class="slides-container">
+            <div class="slide-wrapper">
+                <img src="fotolar/foto1.jpg" class="slide active" alt="Hakan ve Elif" loading="eager" />
+            </div>
+            <div class="slide-wrapper">
+                <img src="fotolar/foto2.jpg" class="slide" alt="Hakan ve Elif" loading="eager" />
+            </div>
+            <div class="slide-wrapper">
+                <img src="fotolar/foto3.jpg" class="slide" alt="Hakan ve Elif" loading="eager" />
+            </div>
+            <div class="slide-wrapper">
+                <img src="fotolar/foto4.jpg" class="slide" alt="Hakan ve Elif" loading="eager" />
+            </div>
+            <div class="slide-wrapper">
+                <img src="fotolar/foto5.jpg" class="slide" alt="Hakan ve Elif" loading="eager" />
+            </div>
+        </div>
+        <div class="hero-overlay">
+            <h1>Hakan <span class="heart-beat">❤️</span> Elif</h1>
+            <p class="subtitle">Birlikte yazdığımız bu güzel hikaye sonsuza dek sürecek...</p>
+            <div class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <section class="about-section" id="hikayemiz">
+        <div class="section-container">
+            <h2 class="section-title">Bizim Hikayemiz</h2>
+            <div class="love-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">İlk Görüş</div>
+                    <div class="timeline-content">
+                        <h3>Tanışma Anımız</h3>
+                        <p>O ilk bakışta kalbimizde hissettiğimiz o özel bağ, zamanla büyüyerek aşkımıza dönüştü. Seninle tanışmak hayatımın en güzel dönüm noktası oldu.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">İlk Buluşma</div>
+                    <div class="timeline-content">
+                        <h3>Unutulmaz Anılar</h3>
+                        <p>Birlikte geçirdiğimiz o ilk gün, her dakikası ayrı bir mutluluktu. Kahkahalarımız, sohbetlerimiz ve o anlattığın hikayelerle geçen saatler...</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Aşkımız</div>
+                    <div class="timeline-content">
+                        <h3>Bir Ömür Boyu</h3>
+                        <p>Artık biliyoruz ki, bu yolculukta hep birlikteyiz. Seninle her gün yeni bir macera, yeni bir mutluluk. Birlikte büyüyen aşkımız...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+  <a href="hikayemiz.html" class="button">Hikayemizi Oku</a>
+</div>
+
+    </section>
+
+    <section class="countdown-section" id="countdown">
+        <div class="section-container">
+            <h2 class="section-title">Yıl Dönümümüze Kalan Süre</h2>
+            <p class="section-subtitle">10 Aralık'ta kutlayacağımız o özel gün için geri sayım...</p>
+            <div id="countdown-timer" class="countdown-container">
+                <!-- JS ile doldurulacak -->
+            </div>
+            <div class="memory-quote">
+                <i class="fas fa-quote-left"></i>
+                <p>Seninle geçen her an, bir ömre bedel...</p>
+                <i class="fas fa-quote-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="interactive-section">
+        <div class="section-container">
+            <button id="loveBtn" class="love-button">
+                <span class="btn-text">Seni Seviyorum</span>
+                <span class="heart-icon"><i class="fas fa-heart"></i></span>
+            </button>
+            <div id="loveMessage" class="love-message"></div>
+        </div>
+    </section>
+
+    <section class="secret-section">
+        <div class="section-container">
+            <h3 class="section-title">Özel Mesajım</h3>
+            <p class="section-subtitle">Sadece ikimizin bildiği şifre ile açılacak sürpriz 💝</p>
+            <div class="secret-container">
+                <input type="password" id="secretInput" class="secret-input" placeholder="Özel Şifre" />
+                <button onclick="checkSecret()" class="secret-button">
+                    <i class="fas fa-lock-open"></i> Aç
+                </button>
+            </div>
+            <div class="hint-text">(İpucu: Bizim için özel bir yer)</div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                Hakan <span class="heart-icon"><i class="fas fa-heart"></i></span> Elif
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> Tüm Hakları Saklıdır
+            </div>
+        </div>
+        <!-- Sevimli Fil Asistan -->
+<div id="filAsistan">
+    <img src="fotolar/filasistan.jpg" alt="Fil Asistan" id="filGorsel">
+    <div id="filBalonu" class="balon-gizli">Merhaba aşkım! ❤️</div>
+</div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

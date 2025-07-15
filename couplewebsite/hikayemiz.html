@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hakan ve Elif'in Aşk Hikayesi" />
+    <title>Hikayemiz | Hakan ❤️ Elif</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Kitap Özel Stilleri */
+        .book-section {
+            padding: 5rem 0;
+            background-color: #f9f3f3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .book-container {
+            perspective: 1500px;
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .book {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        
+        .book-page {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            background: white;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            padding: 2rem;
+            overflow-y: auto;
+            transform-origin: left center;
+            transition: transform 1s;
+            backface-visibility: hidden;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .page-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .page-left {
+            left: 0;
+            z-index: 1;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .page-right {
+            left: 50%;
+            z-index: 0;
+        }
+        
+        .page-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .book-cover {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .book-cover h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .book-cover p {
+            font-size: 1.2rem;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .book-back-cover {
+            background: linear-gradient(135deg, #ff8e8e, #ff6b6b);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .book-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .book-nav button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .book-nav button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .book-nav button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .memory-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin: 1rem 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .book {
+                height: 400px;
+            }
+            
+            .book-cover h2 {
+                font-size: 2rem;
+            }
+            
+            .book-cover p {
+                font-size: 1rem;
+            }
+            
+            .page-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .book {
+                height: 350px;
+            }
+            
+            .book-cover h2 {
+                font-size: 1.5rem;
+            }
+            
+            .book-nav {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .book-nav button {
+                width: 80%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div class="header-container">
+        <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Anasayfa</a>
+        <a href="anilar.html" class="nav-link"><i class="fas fa-book-open"></i> Anılarımız</a>
+        <a href="hikayemiz.html" class="nav-link active"><i class="fas fa-heart"></i> Hikayemiz</a>
+        <a href="index.html#countdown" class="nav-link"><i class="fas fa-calendar-heart"></i> Yıl Dönümü</a>
+        <a href="yapilacaklar.html" class="nav-link"><i class="fas fa-list-check"></i> Beraber Yapılacaklar</a>
+        <a href="kapsul.html" class="nav-link"><i class="fas fa-lock"></i> Gizli Kapsül</a> 
+        <a href="ask-testi.html" class="nav-link"><i class="fas fa-heartbeat"></i> Aşk Testi</a>
+    </div>
+</header>
+
+    <section class="book-section">
+        <h2 class="section-title">Bizim Aşk Hikayemiz</h2>
+        <p class="section-subtitle">Birlikte yazdığımız bu güzel hikayenin sayfalarını çevirin...</p>
+        
+        <div class="book-container">
+            <div class="book" id="book">
+                <!-- Kapak Sayfası -->
+                <div class="book-page page-left book-cover">
+                    <div class="page-content">
+                        <h2>Hakan & Elif</h2>
+                        <p>Bir Ömür Boyu Sürecek Aşk Hikayemiz</p>
+                        <div style="margin-top: 2rem; font-size: 3rem;">❤️</div>
+                    </div>
+                    <div class="page-number">Kapak</div>
+                </div>
+                
+                <!-- Sayfa 1 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>İlk Tanışma</h3>
+                        <p> Aradan neredeyse 1,5 sene geçmiş korona bitmiş ve okula döneceğim günü heyecanla beklemeye başlamıştım. Ne derler bilirsin sayılı gün çabuk geçermiş. 6 Ekim 2021 sonunda büyük gün gelmişti okuluma , evime dönecektim. Tabi daha o zamanlar hikayenin yeni başladığından haberim bile
+yoktu. Geldiğimin ilk akşamında arkadaşlarım bir kızdan bahsediyorlardı daha o gün onun hakkında anlatılanlar görmeden bile dikkatimi çekmeyi başarmıştı bu kız.</p>
+                        <p>Ertesi günü hep yaptığımız gibi Kalkanlıya çıktığımızda ilk defa orda tanıştık seninle tabi pek tanışma diyemezdim ben ona sadece aynı yerde bulunmuştuk ama bir yerden başlamakta hiç fena değildi.</p>
+                        <img src="fotolar/foto1.jpg" alt="İlk tanışma" class="memory-image">
+                    </div>
+                    <div class="page-number">1</div>
+                </div>
+                
+                <!-- Sayfa 2 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>İlk Buluşma</h3>
+                        <p>Ertesi gün tekrar köye çıktık bu sefer işler normalden biraz farklı ilerledi. Hatay'dan alışkanlık şargoz çok severim şans işte tamda yanımda şargoz planı yapıyorlardı. Böyle şeyleri asla kaçırmam hemen bende dahil oldum hatta bir de küçük bir iddia koyduk sarhoş olan kaybeder diye tabi bunlar biraz işin bahanesiydi.Zaman öyle geçiyordu ki sabah olana kadar sohbet etmeye devam ettik hatta süre hala yetmemiş olacak ki planı ertesi günü tekrarlamaya sözleştik.</p>
+                        <p>Tarihler 10 Ekim olunca tamam biraz alkol ve sarhoşluğuma denk gelmiş olabilir ama asıl sebebi kendimi rahat hissetmemden kendimi açmaya başladım. Gene bir ayın 10 u sanırım bizim olayımız 10'lar. O günle beraber aslında arkadaşlarımızla oturduktan sonra bir de 2. yurt kantininde saatlerce sohbet etmeye başlamıştık.</p>
+                    </div>
+                    <div class="page-number">2</div>
+                </div>
+                
+                <!-- Sayfa 3 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>İlk Güven</h3>
+                        <p>O dönem tabi kızın bazı tabuları vardı. Normalde kendim için sorun çözen ben uzun süredir ilk defa birinin yanında olmak istemiştim. Ona bir yıldız seçtik yıldızların altında saatlerce oturduk. O gün ilk defa yaslandı bana tabi ucube arkadaşlarımız olmasa daha önce de olurdu neyse konu bu değil. O günden sonra bana güvenmeye başlamıştı hem de inatla bana güvenme derken.</p>
+                        <p>Tabi bizimkiler durur mu hemen sorular başladı siz ne iş yok ne alaka falan filan asla rahat vermiyorlar sürekli darlıyorlardı.Hatta kızın arkadaşları da başlayınca bu işe 1-2 nereyse her gün sorguda gibiydik.</p>
+                    </div>
+                    <div class="page-number">3</div>
+                </div>
+                
+                <!-- Sayfa 4 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>BÜYÜK GÜN</h3>
+                        <p>Her zamanki gibi vakit geçirecektik ama o gün biraz farklıydı çünkü ben kısa bir süre sonra Hatay'a ailemin yanına dönecektim. Ertesi gününe bir doğum gününe gidecektik ama biz gene oturup içmeyi ve sohbet etmeyi seçmiştik aslında o güne kadar içten içe hep farkındaydık aramızda bir şeylerin döndüğünü ama belki itiraf etmek istemiyorduk belki de büyüsünü bozup her şeyi mahvetmekten korkuyorduk.</p>
+                        <p>Yanlış yollara sapmamız bile eğlenceliydi çünkü birlikteydik. O günlerden kalan fotoğraflara her baktığımda gülümsüyorum.</p>
+                    </div>
+                    <div class="page-number">4</div>
+                </div>
+                
+                <!-- Sayfa 5 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>Zor Zamanlar</h3>
+                        <p>Elbette zor zamanlarımız da oldu. Ama her zorluk bizi birbirimize daha çok bağladı. Birlikte aştığımız her engel, aşkımızı güçlendirdi.</p>
+                        <p>Senin desteğin olmasaydı belki pes ederdim. Ama sen hep yanımda oldun, güç verdin...</p>
+                        <img src="fotolar/hikaye/hikaye1.jpg.jpeg" alt="Zor zamanlar" class="memory-image">
+                    </div>
+                    <div class="page-number">5</div>
+                </div>
+                
+                <!-- Sayfa 6 -->
+                <div class="book-page page-right">
+    <div class="page-content">
+        <h3>Mutlu Anlar</h3>
+        <p>Doğum günlerimiz, yıl dönümlerimiz, sürprizlerimiz... Her biri ayrı birer hazine benim için.</p>
+        <p>Senin için hazırladığım o küçük sürprizi hatırlıyor musun? Yüzündeki o mutluluk ifadesini asla unutmayacağım.</p>
+        
+        <!-- Video Ekleme Kısmı -->
+        <div class="memory-video">
+            <video width="100%" controls autoplay loop muted playsinline>
+                <source src="fotolar/hikaye/mutluan.mp4.mp4" type="video/mp4">
+                <source src="fotolar/hikaye/mutluan.mp4.webm" type="video/webm">
+                Tarayıcınız video etiketini desteklemiyor.
+            </video>
+            <p class="video-caption">Mutluluk dolu anlarımız ❤️</p>
+
+        </div>
+        <p>(Videoyu ortalayamadım üstüne basınca büyüyor :/)</p>
+    </div>
+    <div class="page-number">6</div>
+</div>
+                
+                <!-- Sayfa 7 -->
+                <div class="book-page page-right">
+                    <div class="page-content">
+                        <h3>Hayallerimiz</h3>
+                        <p>Birlikte kurduğumuz hayaller... Evimiz, belki çocuklarımız, birlikte görmek istediğimiz yerler.</p>
+                        <p>Seninle birlikte geleceği düşünmek bile beni heyecanlandırıyor. Biliyorum ki hayallerimiz gerçek olacak.</p>
+                        <img src="fotolar/hikaye/hayaller.jpg.jpeg" alt="Gelecek hayallerimiz" class="memory-image">
+                    </div>
+                    <div class="page-number">7</div>
+                </div>
+                
+                <!-- Arka Kapak -->
+                <div class="book-page page-right book-back-cover">
+                    <div class="page-content">
+                        <h2>Ve Sonsuza Dek...</h2>
+                        <p>Bu hikaye bitmeyecek, her gün yeni sayfalar ekleyeceğiz. Seninle olan yolculuğumuz devam edecek.</p>
+                        <div style="margin-top: 2rem; font-size: 2rem;">
+                            <i class="fas fa-heart heart-beat"></i>
+                        </div>
+                    </div>
+                    <div class="page-number">Son</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="book-nav">
+            <button id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Önceki Sayfa</button>
+            <button id="nextBtn"><i class="fas fa-arrow-right"></i> Sonraki Sayfa</button>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                Hakan <span class="heart-icon"><i class="fas fa-heart"></i></span> Elif
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year"></span> Tüm Hakları Saklıdır
+            </div>
+        </div>
+        <!-- Sevimli Fil Asistan -->
+<div id="filAsistan">
+    <img src="fotolar/filasistan.jpg" alt="Fil Asistan" id="filGorsel">
+    <div id="filBalonu" class="balon-gizli">Merhaba aşkım! ❤️</div>
+</div>
+    </footer>
+        <!-- Önceki kodlar aynı kalıyor -->
+
+    <script src="js/main.js"></script>
+    <script>
+    // WhatsApp Butonu Fonksiyonu
+    document.getElementById('whatsappBtn').addEventListener('click', function() {
+        const phoneNumber = '905442949744'; 
+        const message = 'Merhaba Hakan ve Elif, anılarınız çok güzel! ❤️';
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    // Kitap Sayfa Çevirme Fonksiyonları
+    document.addEventListener('DOMContentLoaded', function() {
+        const book = document.getElementById('book');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const pages = document.querySelectorAll('.book-page');
+        let currentPage = 0;
+        const totalPages = pages.length;
+        
+        function setupPages() {
+            pages.forEach((page, index) => {
+                if (index === 0) {
+                    page.style.transform = 'rotateY(0deg)';
+                    page.style.zIndex = totalPages;
+                } else {
+                    page.style.transform = 'rotateY(180deg)';
+                    page.style.zIndex = totalPages - index;
+                }
+            });
+        }
+        
+        setupPages();
+        
+        nextBtn.addEventListener('click', function() {
+            if (currentPage < totalPages - 1) {
+                const currentPageElement = pages[currentPage];
+                const nextPageElement = pages[currentPage + 1];
+                
+                currentPageElement.style.transform = 'rotateY(-180deg)';
+                nextPageElement.style.transform = 'rotateY(0deg)';
+                currentPageElement.style.zIndex = totalPages - currentPage;
+                nextPageElement.style.zIndex = totalPages + currentPage + 1;
+                currentPage++;
+                
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === totalPages - 1;
+            }
+        });
+        
+        prevBtn.addEventListener('click', function() {
+            if (currentPage > 0) {
+                const currentPageElement = pages[currentPage];
+                const prevPageElement = pages[currentPage - 1];
+                
+                currentPageElement.style.transform = 'rotateY(180deg)';
+                prevPageElement.style.transform = 'rotateY(0deg)';
+                currentPageElement.style.zIndex = totalPages - currentPage;
+                prevPageElement.style.zIndex = totalPages + currentPage;
+                currentPage--;
+                
+                prevBtn.disabled = currentPage === 0;
+                nextBtn.disabled = currentPage === totalPages - 1;
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                prevBtn.click();
+            }
+        });
+        
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // XP Sistemi ve Kalp Spawn için Özel Çözüm
+        function initializeXPSystem() {
+            // XP Container oluştur (eğer yoksa)
+            if (!document.querySelector('.xp-container')) {
+                const xp = localStorage.getItem('loveXP') || 0;
+                const xpContainer = document.createElement('div');
+                xpContainer.className = 'xp-container';
+                xpContainer.innerHTML = `
+                    <div class="xp-count">${xp}/100 XP</div>
+                    <div class="xp-bar">
+                        <div class="xp-progress" style="width: ${xp}%"></div>
+                    </div>
+                    <div class="treasure-chest" title="Sandığı Aç" style="display: none"></div>
+                `;
+                document.body.appendChild(xpContainer);
+            }
+
+            // Kalp spawn fonksiyonlarını kontrol et ve başlat
+            if (typeof spawnHeart !== 'undefined' && typeof randomHeartSpawn !== 'undefined') {
+                setTimeout(() => {
+                    spawnHeart();
+                    randomHeartSpawn();
+                }, 3000);
+            } else {
+                console.error("Kalp fonksiyonları tanımlı değil!");
+                // Alternatif olarak fonksiyonları burada tanımlayabiliriz
+                window.spawnHeart = function() {
+                    // spawnHeart fonksiyonunun içeriği buraya
+                };
+                window.randomHeartSpawn = function() {
+                    // randomHeartSpawn fonksiyonunun içeriği buraya
+                };
+                setTimeout(() => {
+                    spawnHeart();
+                    randomHeartSpawn();
+                }, 3000);
+            }
+        }
+
+        // Sayfa yüklendikten sonra XP sistemini başlat
+        setTimeout(initializeXPSystem, 1000);
+    });
+    </script>
+</body>
+</html>
